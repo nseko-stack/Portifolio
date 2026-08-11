@@ -6,6 +6,8 @@ function Contact() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
+    const [statusMessage, setStatusMessage] = useState('');
+    const [isSuccess, setIsSuccess] = useState(false);
 
     const apiBaseUrl = import.meta.env.PROD
         ? import.meta.env.VITE_API_URL || 'https://portifolio-1-wbgs.onrender.com'
@@ -13,15 +15,21 @@ function Contact() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setStatusMessage('');
+        setIsSuccess(false);
+
         try {
-            await axios.post(`${apiBaseUrl}/contact`, { name, email, message });
+            const response = await axios.post(`${apiBaseUrl}/contact`, { name, email, message });
             setName('');
             setEmail('');
             setMessage('');
-            alert('Message sent successfully!');
+            setStatusMessage(response.data?.message || 'Message sent successfully!');
+            setIsSuccess(true);
         } catch (error) {
             console.error('Error sending message:', error);
-            alert('Failed to send message. Please try again later.');
+            const errorMessage = error.response?.data?.error || 'Failed to send message. Please try again later.';
+            setStatusMessage(errorMessage);
+            setIsSuccess(false);
         }
     };
 
@@ -49,7 +57,12 @@ function Contact() {
                         </label>
                         <textarea id="message" name="message" rows={4} value={message} onChange={(e) => setMessage(e.target.value)} required className="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"></textarea>
                     </div>
-                    <button type="submit" className="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    {statusMessage && (
+                        <div className={`mt-4 rounded-md p-3 text-sm ${isSuccess ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+                            {statusMessage}
+                        </div>
+                    )}
+                    <button type="submit" className="mt-4 inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                         Send Message
                     </button>
                 </form>

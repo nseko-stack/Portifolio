@@ -47,6 +47,13 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', databaseConfigured: Boolean(db) });
 });
 
+app.get('/contact', (req, res) => {
+  res.status(200).json({
+    message: 'Use POST /contact to submit a message.',
+    expectedBody: ['name', 'email', 'message']
+  });
+});
+
 app.post('/contact', (req, res) => {
   if (!db) {
     return res.status(503).json({ error: 'Database is not configured yet' });

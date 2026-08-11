@@ -7,10 +7,14 @@ function Contact() {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
 
+    const apiBaseUrl = import.meta.env.PROD
+        ? import.meta.env.VITE_API_URL || 'https://portifolio-1-wbgs.onrender.com'
+        : import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3000/submit', { name, email, message });
+            await axios.post(`${apiBaseUrl}/contact`, { name, email, message });
             setName('');
             setEmail('');
             setMessage('');

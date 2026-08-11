@@ -3,6 +3,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 
@@ -15,6 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 let db = null;
+let fallbackStoragePath = path.join(__dirname, 'messages.json');
 
 if (process.env.DB_HOST && process.env.DB_USER && process.env.DB_PASSWORD && process.env.DB_NAME) {
   db = mysql.createConnection({
@@ -29,6 +32,7 @@ if (process.env.DB_HOST && process.env.DB_USER && process.env.DB_PASSWORD && pro
   db.connect((err) => {
     if (err) {
       console.error('Database connection failed:', err.message);
+      db = null;
       return;
     }
     console.log('Database connected');
@@ -36,6 +40,7 @@ if (process.env.DB_HOST && process.env.DB_USER && process.env.DB_PASSWORD && pro
 
   db.on('error', (err) => {
     console.error('Database error:', err.message);
+    db = null;
   });
 }
 
@@ -61,19 +66,35 @@ app.post('/contact', (req, res) => {
     return res.status(400).json({ error: 'Please provide name, email, and message.' });
   }
 
-  if (!db) {
-    return res.status(503).json({ error: 'Database is not configured yet' });
+  const messageEntry = {
+    name,
+    email,
+    message,
+    createdAt: new Date().toISOString()
+  };
+
+  if (db) {
+    const query = 'INSERT INTO contacts (Name, Email, Message) VALUES (?, ?, ?)';
+
+    return db.query(query, [name, email, message], (err) => {
+      if (err) {
+        console.error('Error inserting contact:', err);
+        return res.status(500).json({ error: 'Failed to save contact' });
+      }
+
+      return res.status(200).json({ message: 'Contact saved successfully' });
+    });
   }
 
-  const query = 'INSERT INTO contacts (Name, Email, Message) VALUES (?, ?, ?)';
+  const existingMessages = fs.existsSync(fallbackStoragePath)
+    ? JSON.parse(fs.readFileSync(fallbackStoragePath, 'utf8'))
+    : [];
 
-  db.query(query, [name, email, message], (err) => {
-    if (err) {
-      console.error('Error inserting contact:', err);
-      return res.status(500).json({ error: 'Failed to save contact' });
-    }
+  existingMessages.push(messageEntry);
+  fs.writeFileSync(fallbackStoragePath, JSON.stringify(existingMessages, null, 2));
 
-    res.status(200).json({ message: 'Contact saved successfully' });
+  return res.status(200).json({
+    message: 'Contact saved locally while no database is configured.'
   });
 });
 

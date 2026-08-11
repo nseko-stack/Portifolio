@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 const fs = require('fs');
 const path = require('path');
+const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
 
@@ -17,7 +18,13 @@ app.use(cors());
 app.use(express.json());
 
 let db = null;
+let supabase = null;
 let fallbackStoragePath = path.join(__dirname, 'messages.json');
+
+if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+  console.log('Supabase client initialized');
+}
 
 if (process.env.DB_HOST && process.env.DB_USER && process.env.DB_PASSWORD && process.env.DB_NAME) {
   db = mysql.createConnection({
@@ -70,8 +77,26 @@ app.post('/contact', (req, res) => {
     name,
     email,
     message,
-    createdAt: new Date().toISOString()
+    created_at: new Date().toISOString()
   };
+
+  if (supabase) {
+    return supabase
+      .from('contacts')
+      .insert([messageEntry])
+      .then(({ error }) => {
+        if (error) {
+          console.error('Supabase insert error:', error);
+          return res.status(500).json({ error: 'Failed to save contact to Supabase' });
+        }
+
+        return res.status(200).json({ message: 'Contact saved successfully to Supabase' });
+      })
+      .catch((err) => {
+        console.error('Supabase request failed:', err);
+        return res.status(500).json({ error: 'Failed to save contact to Supabase' });
+      });
+  }
 
   if (db) {
     const query = 'INSERT INTO contacts (Name, Email, Message) VALUES (?, ?, ?)';

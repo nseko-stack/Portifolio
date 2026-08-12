@@ -89,7 +89,7 @@ app.post('/contact', (req, res) => {
           return res.status(500).json({ error: 'Failed to save contact to Supabase' });
         }
 
-        return res.status(200).json({ message: 'Contact saved successfully to Supabase' });
+        return res.status(200).json({ message: 'Thank you for your message. I appreciate you reaching out, and I’ll get back to you as soon as possible.' });
       })
       .catch((err) => {
         console.error('Supabase request failed:', err);

@@ -77,7 +77,6 @@ app.post('/contact', (req, res) => {
     name,
     email,
     message,
-    created_at: new Date().toISOString()
   };
 
   if (supabase) {

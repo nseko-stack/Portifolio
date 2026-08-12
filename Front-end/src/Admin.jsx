@@ -6,7 +6,7 @@ function Admin () {
     const [contacts, setContacts] = useState([]);
 
     const fetchContacts = () => {
-        axios.get("http://localhost:3000/contacts")
+        axios.get("https://portifolio-1-wbgs.onrender.com/contacts")
             .then(res => setContacts(res.data))
             .catch(err => console.error(err));
     };

@@ -59,6 +59,25 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', databaseConfigured: Boolean(db) });
 });
 
+app.get('/contacts', (req, res) => {
+  if (supabase) {
+    return supabase
+      .from('contacts')
+      .select('*')
+      .then(({ data, error }) => {
+        if (error) {
+          console.error('Supabase fetch error:', error);
+          return res.status(500).json({ error: 'Failed to fetch contacts from Supabase' });
+        }
+        return res.status(200).json(data);
+      })
+      .catch((err) => {
+        console.error('Supabase request failed:', err);
+        return res.status(500).json({ error: 'Failed to fetch contacts from Supabase' });
+      });
+  }
+});
+
 app.get('/contact', (req, res) => {
   res.status(200).json({
     message: 'Use POST /contact to submit a message.',

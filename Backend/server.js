@@ -92,6 +92,7 @@ app.post('/contact', (req, res) => {
     return res.status(400).json({ error: 'Please provide name, email, and message.' });
   }
 
+  // Save the contact message to Supabase
   const messageEntry = {
     name,
     email,
@@ -100,7 +101,7 @@ app.post('/contact', (req, res) => {
 
   if (supabase) {
     return supabase
-      .from('contacts')
+      .from('contacts') 
       .insert([messageEntry])
       .then(({ error }) => {
         if (error) {
@@ -113,6 +114,29 @@ app.post('/contact', (req, res) => {
       .catch((err) => {
         console.error('Supabase request failed:', err);
         return res.status(500).json({ error: 'Failed to save contact to Supabase' });
+      });
+  }
+
+  const loginEntry = {
+    name,
+    email,
+    password,
+  };
+
+  if(supabase) {
+    return supabase
+      .from('login')
+      .insert([loginEntry])
+      .then(({ error }) => {
+        if (error) {
+          console.error('Supabase insert error:', error);
+          return res.status(500).json({ error: 'Failed to login to Supabase' });
+        }
+        return res.status(200).json({ message: 'Login successful' });
+      })
+      .catch((err) => {
+        console.error('Supabase request failed:', err);
+        return res.status(500).json({ error: 'Failed to save login to Supabase' });
       });
   }
 
@@ -129,16 +153,7 @@ app.post('/contact', (req, res) => {
     });
   }
 
-  const existingMessages = fs.existsSync(fallbackStoragePath)
-    ? JSON.parse(fs.readFileSync(fallbackStoragePath, 'utf8'))
-    : [];
-
-  existingMessages.push(messageEntry);
-  fs.writeFileSync(fallbackStoragePath, JSON.stringify(existingMessages, null, 2));
-
-  return res.status(200).json({
-    message: 'Contact saved locally while no database is configured.'
-  });
+  
 });
 
 app.listen(PORT, '0.0.0.0', () => {

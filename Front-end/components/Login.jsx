@@ -5,42 +5,52 @@ import axios from 'axios';
 function Form() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  //const [phone, setPhone] = useState("");
 
   const emailRegex =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const phoneRegex = /^[0-9]{10}$/;
+  //const phoneRegex = /^[0-9]{10}$/;
   const nameValid = name.trim().length > 0; 
+  
 
   
 
   const emailValid = emailRegex.test(email);
-  const phoneValid = phoneRegex.test(phone);
+  const passwordValid = password.trim().length > 0;
+  //const phoneValid = phoneRegex.test(phone);
 
-  const formValid = emailValid && phoneValid && nameValid
+  const formValid = emailValid  && nameValid
+
+const apiBaseUrl = import.meta.env.PROD
+  ? import.meta.env.VITE_API_URL || 'https://portifolio-1-wbgs.onrender.com'
+  : import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!emailValid || !phoneValid) {
-      alert('please fix validation error before login');
-      return;
-    }
+    setName('');
+    setEmail('');
+    setPassword('');
+    setIsSuccess(false);
+    //setPhone('');
+
     try {
-      const response = await axios.post("http://localhost:5000/submit", {
-        name,
-        email,
-        phone_number: phone,
-      });
-      alert(response.data);
-    } catch (err) {
-      console.error(err);
-      alert("Error submitting form");
+      const response = await axios.post(`${apiBaseUrl}/login`, { name, email, password });
+      setEmail('');
+      setPassword('');
+      setName('');
+      setStatusMessage(response.data?.message || 'Login successful!');
+      setIsSuccess(true);
+    } catch (error) {
+      console.error('Error during login:', error);
+      const errorMessage = error.response?.data?.error || 'Login failed. Please try again later.';
+      setStatusMessage(errorMessage);
+      setIsSuccess(false);
     }
   };
 
-
 return(
   <form onSubmit={handleSubmit}>
-    <h1>Signup</h1>
+    <h1 >Login</h1>
     <label>
       Name
        <input type="text" value={name} onChange={(e) => 
@@ -63,13 +73,13 @@ return(
       )}
     </label>
     <label>
-      PhoneNumber
-      <input type="number" value={phone} 
-      onChange={(e) => setPhone(e.target.value)}
-      className= {phone && !phoneValid ? "Must be 10 digits" : ""} placeholder ='Enter your phone number' 
+      Password
+      <input type="password" value={password} 
+      onChange={(e) => setPassword(e.target.value)}
+      placeholder ='Enter your password' 
       />
-      {phone && !phoneValid && (
-        <p className='error'>Must be 10-digits</p>
+      {password && !passwordValid && (
+        <p className='error'>Password can't be empty!</p>
       )}
     </label>
 

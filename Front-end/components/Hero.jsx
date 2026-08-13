@@ -15,7 +15,7 @@ function Hero() {
                         I build secure, scalable Web & Mobile Applications.
                     </p>
                     <div className="flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
-                        <a href="#Projects" className="inline-flex items-center justify-center rounded-full bg-slate-950 px-8 py-3 text-sm font-semibold text-white transition hover:bg-slate-700">
+                        <a href="#Projects" className="inline-flex items-center justify-center rounded-full bg-slate-200 px-8 py-3 text-sm font-semibold text-white transition hover:bg-slate-500">
                             View my Projects
                         </a>
                         <a href="#Contact" className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-8 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100">

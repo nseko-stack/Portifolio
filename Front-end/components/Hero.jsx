@@ -10,7 +10,7 @@ function Hero() {
                     <h1 className="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl md:text-5xl lg:text-6xl">
                         NSEKO GAIN Hugue
                     </h1>
-                    <h2 className="text-lg font-semibold text-slate-700 sm:text-xl">Frontend, Backend & IT Student</h2>
+                    <h2 className="text-lg font-semibold text-slate-700 sm:text-xl">Frontend, Backend Developer</h2>
                     <p className="mx-auto max-w-xl text-sm leading-7 text-slate-600 sm:text-base lg:mx-0">
                         I build secure, scalable Web & Mobile Applications.
                     </p>

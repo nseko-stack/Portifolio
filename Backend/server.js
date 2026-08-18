@@ -22,7 +22,11 @@ let supabase = null;
 let fallbackStoragePath = path.join(__dirname, 'messages.json');
 
 if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
-  supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+  supabase = createClient(
+    process.env.SUPABASE_URL, 
+    process.env.SUPABASE_SERVICE_ROLE_KEY
+  );
+
   console.log('Supabase client initialized');
 }
 

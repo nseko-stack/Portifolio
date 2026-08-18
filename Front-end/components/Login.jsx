@@ -5,16 +5,13 @@ import {Link} from 'react-router-dom';
 
 function Form() {
   const [name, setName] = useState('');
-  //const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
 
-  //const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const nameValid = name.trim().length > 0;
-  //const emailValid = emailRegex.test(email);
   const passwordValid = password.trim().length > 0;
-  const formValid = nameValid && emailValid && passwordValid;
+  const formValid = nameValid && passwordValid;
 
   const apiBaseUrl = import.meta.env.PROD
     ? import.meta.env.VITE_API_URL || 'https://portifolio-1-wbgs.onrender.com'
@@ -30,7 +27,7 @@ function Form() {
     }
 
     try {
-      const response = await axios.post(`${apiBaseUrl}/login`, { name, email, password });
+      const response = await axios.post(`${apiBaseUrl}/login`, { name, password });
       setStatusMessage(response.data?.message || 'Login successful!');
       setIsSuccess(true);
       setName('');

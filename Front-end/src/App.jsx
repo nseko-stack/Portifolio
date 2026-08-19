@@ -19,7 +19,7 @@ function HomePage() {
       <Skills />
       <Contact />
       <Footer />
-      <Admin/>
+      
     </main>
   )
 }

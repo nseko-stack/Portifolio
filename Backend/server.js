@@ -6,6 +6,7 @@ const mysql = require('mysql2');
 const fs = require('fs');
 const path = require('path');
 const { createClient } = require('@supabase/supabase-js');
+const authRouter = require('./routes/auth');
 
 const app = express();
 
@@ -121,28 +122,7 @@ app.post('/contact', (req, res) => {
       });
   }
 
-  const loginEntry = {
-    name,
-    email,
-    password,
-  };
-
-  if(supabase) {
-    return supabase
-      .from('login')
-      .insert([loginEntry])
-      .then(({ error }) => {
-        if (error) {
-          console.error('Supabase insert error:', error);
-          return res.status(500).json({ error: 'Failed to login to Supabase' });
-        }
-        return res.status(200).json({ message: 'Login successful' });
-      })
-      .catch((err) => {
-        console.error('Supabase request failed:', err);
-        return res.status(500).json({ error: 'Failed to save login to Supabase' });
-      });
-  }
+   
 
   if (db) {
     const query = 'INSERT INTO contacts (Name, Email, Message) VALUES (?, ?, ?)';
@@ -159,6 +139,11 @@ app.post('/contact', (req, res) => {
 
   
 });
+
+// Use auth router
+if (supabase) {
+  app.use(authRouter(supabase));
+}
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on http://0.0.0.0:${PORT}`);

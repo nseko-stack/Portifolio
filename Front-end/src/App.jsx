@@ -7,7 +7,7 @@ import Skills from '../components/Skills.jsx'
 import Contact from '../components/Contact.jsx'
 import Footer from '../components/Footer.jsx'
 import Login from '../components/Login.jsx'
-//import Admin from './Admin.jsx'
+import Admin from './Admin.jsx'
 
 function HomePage() {
   return (
@@ -19,6 +19,7 @@ function HomePage() {
       <Skills />
       <Contact />
       <Footer />
+      <Admin/>
     </main>
   )
 }
@@ -28,6 +29,7 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<Login />} />
+      
     </Routes>
   )
 }

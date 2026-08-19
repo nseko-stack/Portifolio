@@ -2,12 +2,14 @@ import { useState } from 'react';
 import axios from 'axios';
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Form() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const nameValid = name.trim().length > 0;
   const passwordValid = password.trim().length > 0;
@@ -32,6 +34,11 @@ function Form() {
       setIsSuccess(true);
       setName('');
       setPassword('');
+      
+      // Redirect to dashboard after 1 second
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1000);
     } catch (error) {
       console.error('Error during login:', error);
       const errorMessage = error.response?.data?.error || 'Login failed. Please try again later.';

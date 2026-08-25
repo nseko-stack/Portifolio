@@ -24,6 +24,9 @@ function Skills() {
                         Express.js
                     </li>
                     <li className="flex items-center gap-2 rounded-lg bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200">
+                        RestAPI
+                    </li>
+                    <li className="flex items-center gap-2 rounded-lg bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200">
                         Git
                     </li>
                     <li className="flex items-center gap-2 rounded-lg bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200">

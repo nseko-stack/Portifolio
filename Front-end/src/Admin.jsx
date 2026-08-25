@@ -17,6 +17,7 @@ function Admin () {
 
     return (
         <div className="p-6 bg-gray-50 min-h-screen">
+            
   {/* Dashboard Header */}
   <h2 className="text-2xl font-bold text-gray-800 mb-6 tracking-tight">
     You are mostly welcome Portifolio Admin!

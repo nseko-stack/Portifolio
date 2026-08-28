@@ -20,9 +20,10 @@ function Projects() {
                             <a href="https://e-hahiro-frontend-uetq.vercel.app/" className="inline-flex items-center justify-center rounded-md bg-zinc-100 px-3 py-2 text-sm font-medium text-zinc-950 transition hover:bg-white">
                                 View Live Demo
                             </a>
+                            
                         </div>
                     </div>
-                    <div className="flex h-full flex-col rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
+                    {/*<div className="flex h-full flex-col rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
                         <h3 className="text-lg font-semibold text-zinc-950">Website</h3>
                         <img src={project2Image} alt="phin-forge" className="mt-3 h-48 w-full rounded-xl object-cover" />
                         <p className="mt-3 text-sm leading-6 text-zinc-600">A static website for the PHIN FORGE Company Ltd</p>
@@ -34,7 +35,7 @@ function Projects() {
                                 View Live Demo
                             </a>
                         </div>
-                    </div>
+                    </div>*/}
                      
                 </div>
             </div>

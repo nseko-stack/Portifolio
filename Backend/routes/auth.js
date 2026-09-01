@@ -1,6 +1,10 @@
 const express = require('express');
+const NodeCache = require('node-cache'); // 👈 Added node-cache import
 
 const router = express.Router();
+
+// Initialize a cache for user database records (expires in 10 minutes)
+const userCache = new NodeCache({ stdTTL: 600, checkperiod: 60 });
 
 // Login route - receives supabase client from server
 module.exports = (supabase) => {
@@ -17,17 +21,34 @@ module.exports = (supabase) => {
         return res.status(500).json({ error: 'Database not configured' });
       }
 
-      // Query the users table to find the user
-      const { data, error } = await supabase
-        .from('users')
-        .select('*')
-        .eq('username', name)
-        .single();
+      let data = null;
+      const cacheKey = `user_${name}`;
 
-      // Handle authentication errors
-      if (error || !data) {
-        console.error('User not found:', error?.message);
-        return res.status(401).json({ error: 'Invalid username or password.' });
+      // 1. Check if user database record is already in cache
+      const cachedUser = userCache.get(cacheKey);
+
+      if (cachedUser) {
+        console.log(`User data for "${name}" served from auth cache`);
+        data = cachedUser;
+      } else {
+        // 2. Cache miss: Query the users table to find the user
+        const { data: dbData, error } = await supabase
+          .from('users')
+          .select('*')
+          .eq('username', name)
+          .single();
+
+        // Handle authentication errors
+        if (error || !dbData) {
+          console.error('User not found:', error?.message);
+          return res.status(401).json({ error: 'Invalid username or password.' });
+        }
+
+        data = dbData;
+        
+        // 3. Save to cache for subsequent login requests
+        userCache.set(cacheKey, data);
+        console.log(`User data for "${name}" fetched from database and cached`);
       }
 
       // Check if password matches
@@ -61,15 +82,33 @@ module.exports = (supabase) => {
         return res.status(500).json({ error: 'Database not configured' });
       }
 
-      const { data, error } = await supabase
-        .from('users')
-        .select('*')
-        .eq('username', name)
-        .single();
+      let data = null;
+      const cacheKey = `user_${name}`;
 
-      if (error || !data) {
-        console.error('User not found:', error?.message);
-        return res.status(401).json({ error: 'Invalid username or password.' });
+      // 1. Check if user database record is already in cache
+      const cachedUser = userCache.get(cacheKey);
+
+      if (cachedUser) {
+        console.log(`User data for "${name}" served from auth cache (API route)`);
+        data = cachedUser;
+      } else {
+        // 2. Cache miss: Query the users table to find the user
+        const { data: dbData, error } = await supabase
+          .from('users')
+          .select('*')
+          .eq('username', name)
+          .single();
+
+        if (error || !dbData) {
+          console.error('User not found:', error?.message);
+          return res.status(401).json({ error: 'Invalid username or password.' });
+        }
+
+        data = dbData;
+        
+        // 3. Save to cache for subsequent login requests
+        userCache.set(cacheKey, data);
+        console.log(`User data for "${name}" fetched from database and cached (API route)`);
       }
 
       if (data.password !== password) {

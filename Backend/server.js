@@ -6,6 +6,7 @@ const mysql = require('mysql2');
 const fs = require('fs'); 
 const path = require('path');
 const { createClient } = require('@supabase/supabase-js');
+const NodeCache = require('node-cache'); // 👈 Import node-cache
 const authRouter = require('./routes/auth');
 
 const app = express();
@@ -17,6 +18,9 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+
+// Initialize Cache: Items expire automatically after 5 minutes (300 seconds)
+const contactsCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
 
 let db = null;
 let supabase = null;
@@ -64,7 +68,16 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', databaseConfigured: Boolean(db) });
 });
 
+// GET /contacts: Now utilizes the memory cache layer
 app.get('/contacts', (req, res) => {
+  // 1. Try to fetch data from the memory cache first
+  const cachedData = contactsCache.get('all_contacts');
+  if (cachedData) {
+    console.log('Serving contacts from memory cache');
+    return res.status(200).json(cachedData);
+  }
+
+  // 2. Cache miss: Fetch from Supabase database
   if (supabase) {
     return supabase
       .from('contacts')
@@ -74,12 +87,18 @@ app.get('/contacts', (req, res) => {
           console.error('Supabase fetch error:', error);
           return res.status(500).json({ error: 'Failed to fetch contacts from Supabase' });
         }
+        
+        // 3. Save database response to memory cache before responding
+        contactsCache.set('all_contacts', data);
+        console.log('Contacts fetched from Supabase and saved to cache');
         return res.status(200).json(data);
       })
       .catch((err) => {
         console.error('Supabase request failed:', err);
         return res.status(500).json({ error: 'Failed to fetch contacts from Supabase' });
       });
+  } else {
+    return res.status(503).json({ error: 'Supabase client is not initialized' });
   }
 });
 
@@ -97,7 +116,6 @@ app.post('/contact', (req, res) => {
     return res.status(400).json({ error: 'Please provide name, email, and message.' });
   }
 
-  // Save the contact message to Supabase
   const messageEntry = {
     name,
     email,
@@ -114,6 +132,10 @@ app.post('/contact', (req, res) => {
           return res.status(500).json({ error: 'Failed to save contact to Supabase' });
         }
 
+        // ⚡ Cache Invalidation: Clear cache so the next GET request pulls the new message
+        contactsCache.del('all_contacts');
+        console.log('Cache cleared due to new contact entry registration');
+
         return res.status(200).json({ message: 'Thank you for your message. I appreciate you reaching out, and I’ll get back to you as soon as possible.' });
       })
       .catch((err) => {
@@ -121,8 +143,6 @@ app.post('/contact', (req, res) => {
         return res.status(500).json({ error: 'Failed to save contact to Supabase' });
       });
   }
-
-   
 
   if (db) {
     const query = 'INSERT INTO contacts (Name, Email, Message) VALUES (?, ?, ?)';
@@ -133,11 +153,13 @@ app.post('/contact', (req, res) => {
         return res.status(500).json({ error: 'Failed to save contact' });
       }
 
+      // ⚡ Cache Invalidation for MySQL fallback path
+      contactsCache.del('all_contacts');
+      console.log('Cache cleared due to new MySQL contact entry registration');
+
       return res.status(200).json({ message: 'Contact saved successfully' });
     });
   }
-
-  
 });
 
 // Use auth router

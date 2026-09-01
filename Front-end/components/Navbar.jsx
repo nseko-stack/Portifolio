@@ -45,6 +45,29 @@ function Navbar() {
                     <a href="#Contact" className="text-slate-600 hover:text-slate-900 font-medium transition-colors">Contact</a>
                 </div>
 
+                <a 
+                    href="\documents\RESUME.pdf" 
+                    download="My_Resume.pdf" 
+                    className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-5 py-2 text-sm font-semibold text-white shadow-md transition duration-200 hover:bg-sky-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-300"
+                    >
+                
+                <svg 
+                    className="h-4 w-4" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" x2="12" y1="15" y2="3" />
+                </svg>
+                
+                <span>Resume</span>
+                </a>
+
                 {/* Always visible Login Action Button */}
                 <Link 
                     to="/login" 
@@ -61,6 +84,7 @@ function Navbar() {
                     <a href="#About" onClick={closeMenu} className="block rounded-md px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900">About</a>
                     <a href="#Projects" onClick={closeMenu} className="block rounded-md px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900">Projects</a>
                     <a href="#Skills" onClick={closeMenu} className="block rounded-md px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900">Skills</a>
+                    <a href="#Skills" onClick={closeMenu} className="block rounded-md px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900">Certifications</a>
                     <a href="#Contact" onClick={closeMenu} className="block rounded-md px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900">Contact</a>
                 </div>
             )}

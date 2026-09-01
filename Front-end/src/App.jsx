@@ -8,6 +8,7 @@ import Contact from '../components/Contact.jsx'
 import Footer from '../components/Footer.jsx'
 import Login from '../components/Login.jsx'
 import Admin from './Admin.jsx'
+import Certificates from '../components/Certificates.jsx'
 
 function HomePage() {
   return (
@@ -17,7 +18,9 @@ function HomePage() {
       <About />
       <Projects />
       <Skills />
+      <Certificates />
       <Contact />
+
       <Footer />
       
     </main>

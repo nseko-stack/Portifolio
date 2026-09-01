@@ -11,8 +11,24 @@ function Projects() {
                 <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     <div className="flex h-full flex-col rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
                         <h1 className="text-lg font-semibold text-zinc-950">eHAHIRO</h1>
+                            <div className="flex items-center gap-2">
+                                <span className="relative flex h-2.5 w-2.5">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500"></span></span>
+                                <h5 className="text-sm font-bold uppercase tracking-wider text-green-600">Live</h5>
+                            </div>
+                       
                         <img src={project1Image} alt="eHAHIRO" className="mt-3 h-48 w-full rounded-xl object-cover" />
                         <p className="mt-3 text-sm leading-6 text-zinc-600">The system that's going to show the price of Crops in real time</p>
+                        <div className="mt-4 flex flex-wrap items-center gap-1.5">
+                            <span className="rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-900 select-none">React</span>
+                            <span className="rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-900 select-none">Node.js</span>
+                            <span className="rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-900 select-none">Express.js</span>
+                            <span className="rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-900 select-none">Socket.io</span>
+                            <span className="rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-900 select-none">PostgreSQL</span>
+                            <span className="rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-900 select-none">Tailwind CSS</span>
+                        </div>
+
                         <div className="mt-auto flex flex-col gap-2 pt-4 sm:flex-row sm:gap-3">
                             <a href="https://github.com/eHAHIRO" className="inline-flex items-center justify-center rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm font-medium text-zinc-800 transition hover:bg-zinc-100 hover:text-zinc-950">
                                 View Project

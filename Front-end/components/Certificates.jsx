@@ -22,7 +22,7 @@ function Certificates() {
                             onClick={() => setIsOpen(true)}
                             className="mt-10 px-5 py-2.5 rounded-md bg-sky-800 text-white font-medium tracking-wide shadow-sm transition-colors duration-200 hover:bg-sky-900 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 cursor-pointer"
                         >
-                            View Details
+                            View Full Certificate
                         </button>
 
                         <p className="mt-2 text-gray-600">Earned from DTP ICT CHAMBER, covering front-end and back-end development.</p>

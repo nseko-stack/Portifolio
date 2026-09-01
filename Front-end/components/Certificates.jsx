@@ -1,10 +1,9 @@
 import { useState } from 'react';
+import certificateImg from '../src/assets/certificate(2).jpg'; // Path to the certificate image
 
 function Certificates() {
     // State to track if the modal is open and which image to show
     const [isOpen, setIsOpen] = useState(false);
-
-    const certificateImg = "../src/assets/certificate (2)_page-0001.jpg"; // Path to the certificate image
 
     return (
         <div id="Certificates" className="bg-white py-12">

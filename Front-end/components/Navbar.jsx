@@ -42,6 +42,7 @@ function Navbar() {
                     <a href="#About" className="text-slate-600 hover:text-slate-900 font-medium transition-colors">About</a>
                     <a href="#Projects" className="text-slate-600 hover:text-slate-900 font-medium transition-colors">Projects</a>
                     <a href="#Skills" className="text-slate-600 hover:text-slate-900 font-medium transition-colors font-medium">Skills</a>
+                    <a href="#Certificates" className="text-slate-600 hover:text-slate-900 font-medium transition-colors font-medium">Certificates</a>
                     <a href="#Contact" className="text-slate-600 hover:text-slate-900 font-medium transition-colors">Contact</a>
                 </div>
 
@@ -84,7 +85,7 @@ function Navbar() {
                     <a href="#About" onClick={closeMenu} className="block rounded-md px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900">About</a>
                     <a href="#Projects" onClick={closeMenu} className="block rounded-md px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900">Projects</a>
                     <a href="#Skills" onClick={closeMenu} className="block rounded-md px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900">Skills</a>
-                    <a href="#Skills" onClick={closeMenu} className="block rounded-md px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900">Certifications</a>
+                    <a href="#Certificates" onClick={closeMenu} className="block rounded-md px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900">Certificates</a>
                     <a href="#Contact" onClick={closeMenu} className="block rounded-md px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900">Contact</a>
                 </div>
             )}

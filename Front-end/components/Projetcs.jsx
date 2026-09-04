@@ -39,19 +39,19 @@ function Projects() {
                             
                         </div>
                     </div>
-                    {/*<div className="flex h-full flex-col rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
+                    <div className="flex h-full flex-col rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
                         <h3 className="text-lg font-semibold text-zinc-950">Website</h3>
                         <img src={project2Image} alt="phin-forge" className="mt-3 h-48 w-full rounded-xl object-cover" />
                         <p className="mt-3 text-sm leading-6 text-zinc-600">A static website for the PHIN FORGE Company Ltd</p>
                         <div className="mt-auto flex flex-col gap-2 pt-4 sm:flex-row sm:gap-3">
-                            <a href="https://github.com/phin-forge" className="inline-flex items-center justify-center rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm font-medium text-zinc-800 transition hover:bg-zinc-100 hover:text-zinc-950">
+                            <a href="https://github.com/nseko-stack/Chat-app" className="inline-flex items-center justify-center rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm font-medium text-zinc-800 transition hover:bg-zinc-100 hover:text-zinc-950">
                                 View Project
                             </a>
-                            <a href="https://phin-forge.netlify.app/" className="inline-flex items-center justify-center rounded-md bg-zinc-100 px-3 py-2 text-sm font-medium text-zinc-950 transition hover:bg-white">
+                            <a href="https://chat-app-flame-gamma-85.vercel.app/" className="inline-flex items-center justify-center rounded-md bg-zinc-100 px-3 py-2 text-sm font-medium text-zinc-950 transition hover:bg-white">
                                 View Live Demo
                             </a>
                         </div>
-                    </div>*/}
+                    </div>
                      
                 </div>
             </div>

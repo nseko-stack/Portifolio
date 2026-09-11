@@ -47,8 +47,8 @@ function Navbar() {
                 </div>
 
                 <a 
-                    href="\documents\RESUME.pdf" 
-                    download="My_Resume.pdf" 
+                    href="\documents\NSEKO GAIN Hugue.pdf" 
+                    download="Resume.pdf" 
                     className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-5 py-2 text-sm font-semibold text-white shadow-md transition duration-200 hover:bg-sky-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-300"
                     >
                 

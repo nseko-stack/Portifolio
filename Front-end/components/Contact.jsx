@@ -55,7 +55,7 @@ function Contact() {
                         <label htmlFor="message" className="block text-sm font-medium text-slate-700">
                             Message:
                         </label>
-                        <textarea id="message" name="message" rows={4} value={message} onChange={(e) => setMessage(e.target.value)} required className="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"></textarea>
+                        <textarea id="message" name="message" rows={4} value={message} onChange={(e) => setMessage(e.target.value)} required className="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm placeholder:text-[#7A6C5D font-small text-slate-100] " placeholder='Tell me more..........'></textarea>
                     </div>
                     {statusMessage && (
                         <div className={`mt-4 rounded-md p-3 text-sm ${isSuccess ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>

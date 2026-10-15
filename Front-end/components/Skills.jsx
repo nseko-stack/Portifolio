@@ -18,6 +18,9 @@ function Skills() {
                         React
                     </li>
                     <li className="flex items-center gap-2 rounded-lg bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200">
+                        Next js
+                    </li>
+                    <li className="flex items-center gap-2 rounded-lg bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200">
                         Node.js
                     </li>
                     <li className="flex items-center gap-2 rounded-lg bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200">
@@ -33,6 +36,9 @@ function Skills() {
                         Python
                     </li>
                     <li className="flex items-center gap-2 rounded-lg bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200">
+                        Django
+                    </li>
+                    <li className="flex items-center gap-2 rounded-lg bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200">
                         MySQL
                     </li>
                     <li className="flex items-center gap-2 rounded-lg bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200">
@@ -45,12 +51,8 @@ function Skills() {
                     <li className="flex items-center gap-2 rounded-lg bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200">
                         Tailwind CSS
                     </li>
-                    <li className="flex items-center gap-2 rounded-lg bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200">
-                        Postman
-                    </li>
-                    <li className="flex items-center gap-2 rounded-lg bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200">
-                        Figma
-                    </li>
+                    
+                    
                 </ul>
             </div>
         </section>
